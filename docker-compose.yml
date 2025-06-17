@@ -1,0 +1,47 @@
+services:
+  api:
+    build:
+      context: ./api
+    container_name: api_service
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      # Assurez-vous que votre API utilise cette variable pour se connecter à MongoDB
+      - MONGODB_URI=mongodb://mongo:27017/dbProjet
+    volumes:
+      - ./api:/app
+      - /app/node_modules # Empêche le node_modules de l'hôte de masquer celui du conteneur
+    depends_on:
+      - mongo
+
+  mobile:
+    build:
+      context: ./mobile
+    container_name: mobile_service
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+      - "8081:8081" # Port pour Metro Bundler
+    depends_on:
+      - api # Peut-être aussi mongo si le mobile en a besoin directement, sinon api suffit
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./mobile:/app
+      - /app/node_modules # Empêche le node_modules de l'hôte de masquer celui du conteneur
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+    command: npx expo start --tunnel
+
+  mongo:
+    image: mongo:latest # Ou une version spécifique
+    container_name: mongo_db
+    ports:
+      - "27017:27017" # Expose MongoDB sur l'hôte si nécessaire pour débogage
+    volumes:
+      - mongo-data:/data/db # Persiste les données MongoDB
+
+volumes:
+  mongo-data:
