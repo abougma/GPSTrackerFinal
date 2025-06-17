@@ -76,8 +76,7 @@ Exemple de corps JSON :
 {
   "latitude": 5.34567,
   "longitude": -4.01234,
-  "timestamp": "2025-06-17T10:30:00Z",
-  "description": "Position test"
+  "deviceId": 123
 }
 ```
 
