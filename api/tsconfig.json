@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "incremental": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "outDir": "./dist",
+    "types": ["node", "express"],
+    "noImplicitAny": false
+  },
+  "exclude": ["./node_modules", "./dist"],
+  "include": ["./src/**/*.ts"]
+}
