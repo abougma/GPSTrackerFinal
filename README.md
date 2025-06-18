@@ -153,3 +153,43 @@ curl -X POST http://<adresse-ip-api>:3000/api/positions \
 * **Pare-feu** : Assurez-vous que votre pare-feu autorise les connexions entrantes sur le port `3000` (pour l'API) et `8081` (pour Metro Bundler si besoin de connexion directe) afin que l'appareil mobile puisse communiquer avec les services.
 * **Réseau** : L'ordinateur exécutant Docker et l'appareil mobile avec Expo Go doivent impérativement être sur le même réseau local.
 * **Connexion Internet** : Une connexion Internet est requise pour que le tunnel Expo (`--tunnel`) fonctionne, permettant à Expo Go de télécharger le bundle de l'application.
+
+
+## Dépannage des problèmes de connexion réseau (Network request failed)
+
+Si vous rencontrez une erreur `Network request failed` ou similaire depuis l'application mobile en essayant de joindre l'API, cela peut être dû au pare-feu de votre machine hôte (Windows) qui bloque les connexions entrantes.
+
+### Autoriser le port 3000 dans le Pare-feu Windows
+
+L'API (service `api`) écoute sur le port `3000`. Vous devez autoriser les connexions entrantes sur ce port :
+
+1.  **Ouvrir le Pare-feu Windows avec fonctions avancées de sécurité :**
+    *   Appuyez sur la touche `Windows` et tapez "Pare-feu Windows Defender avec fonctions avancées de sécurité".
+    *   Cliquez sur l'application qui apparaît.
+
+2.  **Créer une nouvelle règle de trafic entrant :**
+    *   Dans le volet de gauche, cliquez sur "Règles de trafic entrant".
+    *   Dans le volet de droite (Actions), cliquez sur "Nouvelle règle...".
+
+3.  **Type de règle :**
+    *   Sélectionnez "Port" et cliquez sur "Suivant".
+
+4.  **Protocole et ports :**
+    *   Sélectionnez "TCP".
+    *   Sélectionnez "Ports locaux spécifiques".
+    *   Dans le champ à côté, tapez `3000`.
+    *   Cliquez sur "Suivant".
+
+5.  **Action :**
+    *   Sélectionnez "Autoriser la connexion".
+    *   Cliquez sur "Suivant".
+
+6.  **Profil :**
+    *   Cochez les profils auxquels la règle doit s'appliquer (généralement "Privé" est suffisant pour le développement local. Si votre réseau est configuré comme "Public", cochez-le aussi, mais soyez conscient des implications de sécurité).
+    *   Cliquez sur "Suivant".
+
+7.  **Nom :**
+    *   Donnez un nom descriptif à la règle, par exemple : `API Projet Mobile (Port 3000)`.
+    *   Cliquez sur "Terminer".
+
+Après avoir créé cette règle, redémarrez Docker et votre application mobile pour vous assurer que les changements sont pris en compte. Assurez-vous également que votre appareil mobile est sur le même réseau Wi-Fi que votre ordinateur et que l'adresse IP configurée dans `mobile/config/apiConfig.ts` est correcte.
