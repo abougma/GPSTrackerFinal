@@ -58,10 +58,15 @@ Des tests unitaires ont été configurés pour le projet mobile à l'aide de Jes
 1.  **Se placer dans le répertoire du projet mobile :**
 
     ```bash
-    cd mobile
+    cd mobile 
     ```
+2.  **Se placer dans le répertoire du projet api :**
 
-2.  **Exécuter la commande de test :**
+    ```bash
+    cd api 
+    ```    
+
+3.  **Exécuter la commande de test :**
 
     ```bash
     npm test
