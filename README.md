@@ -51,6 +51,24 @@ Ce projet est une application de suivi GPS composée d'une API backend et d'une 
     * Scannez le QR code affiché dans les logs du `mobile_service`.
     * L'application devrait se charger.
 
+## Lancer les tests
+
+Des tests unitaires ont été configurés pour le projet mobile à l'aide de Jest. Pour les exécuter :
+
+1.  **Se placer dans le répertoire du projet mobile :**
+
+    ```bash
+    cd mobile
+    ```
+
+2.  **Exécuter la commande de test :**
+
+    ```bash
+    npm test
+    ```
+
+    Jest trouvera et exécutera tous les fichiers de test (ceux se terminant par `.test.ts`) et affichera les résultats dans le terminal.
+
 ## Tester l'API (Optionnel)
 
 L'API est accessible directement depuis votre machine via un navigateur ou un outil comme Postman à l'adresse `http://localhost:3000`. Par exemple, si vous avez une route `/api/users`, elle sera accessible à `http://localhost:3000/api/users`.
